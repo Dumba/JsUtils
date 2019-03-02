@@ -1,0 +1,268 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Pisq</title>
+  <meta charset="utf-8" />
+  <style type="text/css">
+    input[type="number"] {
+      max-width: 3rem;
+    }
+
+    body {
+      margin: 5rem 0;
+    }
+    header {
+      display: table;
+      margin: 0.5rem auto;
+    }
+    header form {
+      padding: 0.3rem;
+      border: 0.2rem solid #999;
+      border-radius: 0.5rem;
+    }
+    header .item {
+      height: 1.5rem;
+      margin: 0.5rem;
+      text-align: center;
+    }
+    header #symbol {
+      display: inline-block;
+      width: 1.5rem;
+      height: 1.5rem;
+
+      border-radius: 0.5rem;
+    }
+    header #notice {
+      color: red;
+    }
+
+    #battlefield {
+      margin: 0 auto;
+
+      border: 0.3rem solid #444;
+      border-radius: 1rem;
+    }
+    #battlefield td {
+      width: 1.5rem;
+      min-width: 1.5rem;
+      height: 1.5rem;
+      min-height: 1.5rem;
+
+      background: #ddd;
+
+      text-align: center;
+    }
+    #battlefield td.nil {
+      opacity: 0;
+    }
+    #battlefield td#left, #battlefield td#right {
+      -webkit-transform: rotate(-90deg);
+      -moz-transform: rotate(-90deg);
+      -ms-transform: rotate(-90deg);
+      -o-transform: rotate(-90deg);
+    }
+  </style>
+  <script src="http://code.jquery.com/jquery-2.0.1.min.js"></script>
+  <!-- <script src="jquery-2.0.1.js"></script> -->
+  <script type="text/javascript">
+    var player = 0;
+    var symbols = ['x', 'o'];
+    var colors = ['#0d0', '#dd0']; // green, yellow
+    var max_width = 0;
+    var max_height = 0;
+    var min_width = 0;
+    var min_height = 0;
+    var win = false;
+
+    function add_battlefield_events(item) {
+        // game already over
+        if (win) {
+          $('#notice').html("Hra již zkončila!");
+          return;
+        }
+
+        // isn't empty
+        if (item.html() != '') {
+          $('#notice').html("Toto pole je již obsazeno!");
+          return;
+        }
+
+        // change the symbol in the field
+        item.html(symbols[player]);
+        item.css("background", colors[player]);
+
+        // is it win?
+        var DIRECTIONS = [[-1, 1], [0, 1], [1, 1], [1, 0]];
+        for (var directions_index = 0; directions_index < DIRECTIONS.length; directions_index++) {
+          var count = 1;
+          var winning_combination = [[item.attr('x') - 0, item.attr('y') - 0]];
+
+          for (var reverse = 1; reverse != -3;reverse -= 2) {
+            dir_x = DIRECTIONS[directions_index][0] * reverse
+            dir_y = DIRECTIONS[directions_index][1] * reverse
+
+            for (var i = 1; i < $('#win').val(); i++) {
+              var x = item.attr('x') - 0 + (i * dir_x);
+              var y = item.attr('y') - 0 + (i * dir_y);
+              if (y > $('#height').val() || x > $('#width').val()) { break; }
+              if ($('[x="' + x + '"][y="' + y + '"]').html() == item.html()) {
+                count++;
+                winning_combination.push([x, y]);
+              } else {
+                break;
+              }
+            };
+          };
+          if (count >= $('#win').val()) {
+            win = true;
+            break;
+          }
+        }
+
+        // won
+        if (win) {
+          for (var i = 0; i < winning_combination.length; i++) {
+            x = winning_combination[i][0];
+            y = winning_combination[i][1];
+
+            $('[x="' + x + '"][y="' + y + '"]').css('color', '#fff');
+          };
+          $('#turn').html('Vyhrály: <div id="symbol">' + symbols[player] + '</div>');
+          $('#symbol').css('color', '#fff');
+          $('#symbol').css('background', colors[player]);
+          return
+        }
+  
+        // prepare next turn
+        player = next_player(player)
+        $('#notice').html('');
+        $('#symbol').html(symbols[player]);
+        $('#symbol').css('background', colors[player]);
+    }
+
+    function next_player(current_player) {
+      if (current_player == 0) {return 1;}
+      return 0
+    }
+
+    function start() {
+      max_width = $('#width').val();
+      max_height = $('#height').val();
+      
+      create_battlefield();
+      $('#turn').html('Na tahu je: <div id="symbol">' + symbols[player] + '</div>');
+      $('#symbol').css('color', 'black');
+      $('#symbol').css('background', colors[player]);
+      $('#notice').html('');
+    }
+    function reset_battlefield() {
+      player = 0;
+      win = false;
+      start();
+    }
+  	function create_battlefield() {
+      // battlefield
+      // it is faster to prepare string and after than append it
+      var battlefield_string = "<tr id='start'><td class='nil'></td><td id='top' colspan=" + $('#width').val() + ">Přidat řádek</td><td class='nil'></td></tr>";
+  	  for (var y = 0; y < $('#height').val(); y++) {
+        battlefield_string += "<tr id=" + y + ">";
+        if (y == 0) battlefield_string += "<td id='left' rowspan=" + $('#height').val() + ">Přidat sloupec</td>";
+  	  	for (var x = 0; x < $('#width').val(); x++) {
+          battlefield_string += "<td class='field' x='" + x + "' y='" + y + "'></td>";
+  	  	};
+        if (y == 0) battlefield_string += "<td id='right' rowspan=" + $('#height').val() + ">Přidat sloupec</td>";
+        battlefield_string += "</tr>";
+  	  };
+      battlefield_string += "<tr id='end'><td class='nil'></td><td id='bottom' colspan=" + $('#width').val() + ">Přidat řádek</td><td class='nil'></td></tr>";
+      $('#battlefield').html(battlefield_string);
+
+      //// Events ////
+      $('td.field').click(function() {
+        add_battlefield_events($(this));
+      });
+      $('td#bottom').click(function() {
+        // game already over
+        if (win) {
+          $('#notice').html("Hra již zkončila!");
+          return;
+        }
+
+        $('#height').val($('#height').val()-0+1);
+
+        // edit add_column
+        $('#right').attr('rowspan', $('#height').val());
+        $('#left').attr('rowspan', $('#height').val());
+
+        // add line
+        append_string = "<tr id='" + ($('#height').val()-1) + "'>";
+        
+        for (var x = 0; x < $('#width').val(); x++) {
+          append_string += "<td class='field' x='" + x + "' y='" + ($('#height').val()-1) + "'></td>";
+        };
+        append_string += "</tr>";
+
+        $('#end').before(append_string);
+        $('tr#' + ($('#height').val()-1) + ' td').click(function() {
+          add_battlefield_events($(this));
+        });
+      });
+      $('td#right').click(function() {
+        // game already over
+        if (win) {
+          $('#notice').html("Hra již zkončila!");
+          return;
+        }
+
+        $('#width').val($('#width').val()-0+1);
+
+        // edit add_row
+        $('#top').attr('colspan', $('#width').val());
+        $('#bottom').attr('colspan', $('#width').val());
+
+        for (var y = 0; y < $('#height').val(); y++) {
+          string = "<td class='field' x='" + ($('#width').val()-1) + "' y='" + y + "'></td>";
+          if (y == 0) {
+            $('td#right').before(string);
+            continue;
+          }
+          $('tr#' + y).append(string);
+        }
+
+        $('td[x="' + ($('#width').val()-1) + '"]').click(function() {
+          add_battlefield_events($(this));
+        });
+      });
+  	}
+
+  	$(document).ready(function() {
+      start();
+
+      // header events
+  	  $('form').submit(function(){
+  	  	reset_battlefield();
+  	  	return false;
+  	  });
+      $('#height, #width, #win').change(function(){
+        reset_battlefield();
+      });
+  	});
+  </script>
+</head>
+<body>
+  <header>
+    <form class="item" method="post">
+      <label for="height">Výška:</label>
+      <input type="number" id="height" name="height" value="20" />
+      <label for="width">Šířka:</label>
+      <input type="number" id="width" name="width" value="20" />
+      <label for="win">Výhra:</label>
+      <input type="number" id="win" name="win" value="5" />
+      <input type="submit" value="Nová hra" />
+    </form>
+    <div class="item" id="turn"></div>
+    <div class="item" id="notice"></div>
+  </header>
+  <table id="battlefield">
+  </table>
+</body>
+</html>

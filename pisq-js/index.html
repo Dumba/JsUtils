@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Pisq</title>
+  <meta charset="utf-8" />
+  <style type="text/css">
+    body {
+      width: 50rem;
+      margin: 5rem auto;      
+    }
+    form {
+      text-align: center;
+    }
+    div#turn {
+      text-align: center;
+    }
+    div#notice {
+      height: 1.5em;
+      color: red;
+      text-align: center;+
+    }
+    #battlefield {
+      margin: 0 auto;
+    }
+    #battlefield input[type="button"] {
+      width: 1.5rem;
+      height: 1.5rem;
+    }
+    button.add {
+      width: 100%;
+    }
+  </style>
+  <script src="http://code.jquery.com/jquery-2.0.1.min.js"></script>
+  <!-- <script src="jquery-2.0.1.js"></script> -->
+  <script type="text/javascript">
+    var player = 0;
+    var symbols = ['x', 'o'];
+    var colors = ['#0d0', '#dd0']; // blue, yellow
+    var win = false;
+
+    function next_player(current_player) {
+      if (current_player == 0) {return 1;}
+      return 0
+    }
+
+    function reset_battlefield() {
+      $('#battlefield').html("");
+      create_battlefield();
+      player = 0;
+      $('#turn').html('na tahu je: <span>' + symbols[player] + '</span>');
+      $('#turn').css('color', 'black');
+      $('#notice').html('');
+      win = false;
+    }
+  	function create_battlefield() {
+      // battlefield
+      // $('#battlefield').append('<tr><td colspan=' + $('#width').val() + '><button class="add">Add line</button></td><tr>');
+      var buttons_string = ""; // it is faster to prepare string and after than append it
+  	  for (var y = 0; y < $('#height').val(); y++) {
+        buttons_string += "<tr id=" + y + ">";
+  	  	for (var x = 0; x < $('#width').val(); x++) {
+          buttons_string += "<td><input type='button' x='" + x + "' y='" + y + "' value=' ' /></td>";
+  	  	};
+        buttons_string += "</tr>";
+  	  };
+      $('#battlefield').append(buttons_string);
+
+      // events
+      $('[type=button]').click(function() {
+        // game already over
+        if (win) {
+          $('#notice').html("Hra již zkončila!");
+          return;
+        }
+
+        // isn't empty
+        if ($(this).val() != ' ') {
+          $('#notice').html("Toto pole je již obsazeno!");
+          return;
+        }
+
+        // change the symbol in the field
+        $(this).val(symbols[player]);
+        $(this).css("background", colors[player]);
+
+        // is it win?
+        var DIRECTIONS = [[-1, 1], [0, 1], [1, 1], [1, 0]];
+        for (var directions_index = 0; directions_index < DIRECTIONS.length; directions_index++) {
+          var count = 1;
+          var winning_combination = [[$(this).attr('x') - 0, $(this).attr('y') - 0]];
+
+          for (var reverse = 1; reverse != -3;reverse -= 2) {
+            dir_x = DIRECTIONS[directions_index][0] * reverse
+            dir_y = DIRECTIONS[directions_index][1] * reverse
+
+            for (var i = 1; i < $('#win').val(); i++) {
+              var x = $(this).attr('x') - 0 + (i * dir_x);
+              var y = $(this).attr('y') - 0 + (i * dir_y);
+              if (y > $('#height').val() || x > $('#width').val()) { break; }
+              if ($('[x="' + x + '"][y="' + y + '"]').val() == $(this).val()) {
+                count++;
+                winning_combination.push([x, y]);
+              } else {
+                break;
+              }
+            };
+          };
+          if (count >= $('#win').val()) {
+            win = true;
+            break;
+          }
+        }
+
+        // won
+        if (win) {
+          for (var i = 0; i < winning_combination.length; i++) {
+            x = winning_combination[i][0];
+            y = winning_combination[i][1];
+
+            $('[x="' + x + '"][y="' + y + '"]').css('color', 'red');
+          };
+          $('#turn').html("Vyhrály '" + symbols[player] + "'");
+          $('#turn').css('color', 'red');
+          return
+        }
+  
+        // prepare next turn
+        player = next_player(player)
+        $('#notice').html('');
+        $('#turn span').html(symbols[player]);
+      });
+  	};
+
+  	$(document).ready(function() {
+  	  create_battlefield();
+      $('div#turn span').html(symbols[player]);
+
+  	  $('form').submit(function(){
+  	  	reset_battlefield();
+  	  	return false;
+  	  });
+
+      $('#height').change(function(){
+        reset_battlefield();
+      });
+      $('#width').change(function(){
+        reset_battlefield();
+      });
+  	});
+  </script>
+</head>
+<body>
+  <form method="post">
+    <label for="height">Výška:</label>
+    <input type="number" id="height" name="height" value="20" />
+    <label for="width">Šířka:</label>
+    <input type="number" id="width" name="width" value="20" />
+    <label for="win">Výhra:</label>
+    <input type="number" id="win" name="win" value="5" />
+    <input type="submit" value="Reset" />
+  </form>
+  <div id="turn">na tahu je: <span></span></div>
+  <div id="notice"></div>
+  <table id="battlefield">
+  </table>
+  <section id="battlefield">
+  </section>
+</body>
+</html>
