@@ -1,0 +1,248 @@
+{
+    "areas": [
+        "Celý Izrael",
+        "Juda",
+        "Izrael"
+    ],
+    "kings": [
+        {
+            "name": "Saul",
+            "reign": [
+                {
+                    "area": 0,
+                    "length": 40
+                }
+            ],
+            "notes": [
+                "První král",
+                "Pomazán Samuelem",
+                "Naplněn Božím duchem & proměněné srdce",
+                "Později zlý duch od Hospodina"
+            ]
+        },
+        {
+            "name": "Iš-bošet",
+            "reign": [
+                {
+                    "area": 2,
+                    "length": 2
+                }
+            ],
+            "notes": [
+                "Dosazen Abnerem"
+            ]
+        },
+        {
+            "name": "David",
+            "reign": [
+                {
+                    "area": 1,
+                    "length": 7
+                },
+                {
+                    "area": 0,
+                    "length": 33
+                }
+            ],
+            "sonOfPrevious": false,
+            "notes": [
+                "Pomazán Samuelem",
+                "Muž podle Božího srdce"
+            ]
+        },
+        {
+            "name": "Šalomoun",
+            "reign": [
+                {
+                    "area": 0,
+                    "length": 40
+                }
+            ],
+            "notes": [
+                "Postavil chrám",
+                "Žádal od Boha moudrost",
+                "Mnoho žen",
+                "Odvrátil se od Hospodina"
+            ]
+        },
+        {
+            "name": "Rechoboám",
+            "reign": [
+                {
+                    "area": 1,
+                    "length": 17
+                }
+            ],
+            "notes": [
+                "Příliš tvrdý na poddané",
+                "Odvrátil se od Hospodina"
+            ]
+        },
+        {
+            "name": "Jeroboám",
+            "reign": [
+                {
+                    "area": 2,
+                    "length": 22
+                }
+            ],
+            "notes": [
+                "Nechal udělat 2 telata, aby lidé nechodili do Judského chrámu",
+                "Nebyl s Hospodinem"
+            ]
+        },
+        {
+            "name": "Abiáš",
+            "reign": [
+                {
+                    "area": 1,
+                    "length": 3
+                }
+            ],
+            "notes": [
+                "Nebyl s Hospodinem"
+            ]
+        },
+        {
+            "name": "Asa",
+            "reign": [
+                {
+                    "area": 1,
+                    "length": 41
+                }
+            ],
+            "notes": [
+                "Horlil pro Hospodina",
+                "Daroval zlato z chrámu aramejskému králi Ben-Hadadovi, aby zaútočil na Izrael"
+            ]
+        },
+        {
+            "name": "Nádab",
+            "reign": [
+                {
+                    "area": 2,
+                    "length": 2
+                }
+            ],
+            "notes": [
+                "Nebyl s Hospodinem",
+                "Zabit při spiknutí"
+            ]
+        },
+        {
+            "name": "Baaša",
+            "reign": [
+                {
+                    "area": 2,
+                    "length": 24
+                }
+            ],
+            "sonOfPrevious": false,
+            "notes": [
+                "Nebyl s Hospodinem"
+            ]
+        },
+        {
+            "name": "Ela",
+            "reign": [
+                {
+                    "area": 2,
+                    "length": 2
+                }
+            ],
+            "notes": [
+                "Nebyl s Hospodinem",
+                "Zemřel při spiknutí Zimriho"
+            ]
+        },
+        {
+            "name": "Zimri",
+            "reign": [
+                {
+                    "area": 2,
+                    "length": 0
+                }
+            ],
+            "sonOfPrevious": false,
+            "notes": [
+                "Zosnoval spiknutí",
+                "Vyhubil celý rod předchozího krále",
+                "Kraloval 7 dní",
+                "Zapálil palác i se sebou"
+            ]
+        },
+        {
+            "name": "Omri",
+            "reign": [
+                {
+                    "area": 2,
+                    "length": 12
+                }
+            ],
+            "sonOfPrevious": false,
+            "notes": [
+                "Porazil druhého uchazeče o trůn - Tibniho",
+                "Kraloval v Tirse, pak vybudoval Samaří",
+                "Nebyl s Hospodinem"
+            ]
+        },
+        {
+            "name": "Achab",
+            "reign": [
+                {
+                    "area": 2,
+                    "length": 22
+                }
+            ],
+            "notes": [
+                "Vzal si Jezábel",
+                "Nebyl vůbec s Hospodinem",
+                "Postavil Baalův chrám v Samaří",
+                "Za jeho vlády vystavěl Chiel Jericho",
+                "Porazil 2x zázračně Ben-Hadada, nechal ho jít",
+                "Neměl rád Eliáše",
+                "Zabil Nábota",
+                "Zemřel ve válce o Rámot-Gileád, kde bojoval po boku Jošafata"
+            ]
+        },
+        {
+            "name": "Jošafat",
+            "reign": [
+                {
+                    "area": 1,
+                    "length": 25
+                }
+            ],
+            "notes": [
+                "Hledal Hospodina",
+                "Uzavřel mír s Izraelem",
+            ]
+        },
+        {
+            "name": "Achaziáš",
+            "reign": [
+                {
+                    "area": 2,
+                    "length": 2
+                }
+            ],
+            "notes": [
+                "Nebyl s Hospodinem",
+                "Zranil se pádem, zemřel na to"
+            ]
+        },
+        {
+            "name": "Joram",
+            "reign": [
+                {
+                    "area": 2,
+                    "length": 12
+                }
+            ],
+            "sonOfPrevious": false,
+            "notes": [
+                "Syn Achaba, bratr Achaziáše"
+            ]
+        }
+    ]
+}

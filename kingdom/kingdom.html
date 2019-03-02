@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <title>Kingdom</title>
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+</head>
+
+<body>
+    <svg id="app">
+        <template v-for="(king, index) in kings" :key="index">
+            <line v-for="(reign, rIndex) in king.reign" :key="index" style="stroke: black; stroke: width 5;" />
+        </template>
+    </svg>
+    <script>
+        var app = new Vue({
+            el: '#app',
+            data: {
+                kings: []
+            },
+            computed: {
+                height: function(reign) {
+                    if (reign.area == 0)
+                        return 50;
+                    if (reign.area == 1)
+                        return 30;
+                    if (reign.area == 2)
+                        return 70;
+                }
+            }
+        })
+    </script>
+</body>
+
+</html>
