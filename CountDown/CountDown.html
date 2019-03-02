@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8" />
+    <title>Count down</title>
+    <style>
+        @font-face {
+            font-family: "Cella";
+            src: url("Cella.otf") format("opentype");
+        }     
+
+        * {
+            margin: 0;
+            padding: 0;
+        }
+
+        html {
+            height: 100%;
+            width: 100%;
+
+            background-color: #000;
+        }
+
+        body {
+            display: flex;
+
+            height: 100%;
+            width: 100%;
+
+            justify-content: center;
+            align-items: center;
+        }
+
+        #time {
+            color: #fff;
+            font-family: 'Cella', monospace;
+            font-size: 180px;
+            text-shadow: #aaa 10px 10px 15px;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="time">00:00:00.00</div>
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            var finish = new Date('2019-03-02 11:37:00');
+            console.log('start');
+            setInterval(() => {
+                var remains = finish - Date.now();
+                if (remains < 0)
+                {
+                    console.log('closing...');
+                    window.close();
+                }
+
+                var total_decimals = Math.floor(remains / 10);
+                var total_seconds = Math.floor(total_decimals / 100);
+                var total_minutes = Math.floor(total_seconds / 60);
+                var total_hours = Math.floor(total_minutes / 60);
+                document.getElementById('time').innerHTML = total_hours + ':' + pad100(total_minutes % 60) + ':' + pad100(total_seconds % 60) + '.' + pad100(total_decimals % 100);
+            }, 10);
+        });
+        function pad100(int) {
+            if (int < 10)
+                return '0' + int;
+
+            return int;
+        }
+    </script>
+</body>
+
+</html>
