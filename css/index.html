@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+    <div class="nav">
+        <ul>
+            <li class="main"><a href="#">Home</a></li>
+            <li><a href="#">Art</a></li>
+            <li><a href="#">Contact</a></li>
+        </ul>
+        <div class="btn bc-secondary">Logout</div>
+    </div>
+
+    <button class="btn bc-primary m">Button</button>
+    <button class="btn bc-secondary m">Button</button>
+    <button class="btn bc-warning m">Button</button>
+    <button class="btn bc-danger m">Button</button>
+    <div></div>
+    <button class="btn c-primary m">Button</button>
+    <button class="btn c-secondary m">Button</button>
+    <button class="btn c-warning m">Button</button>
+    <button class="btn c-danger m">Button</button>
+
+    <input class="input" type="text" placeholder="placeholder" />
+    <div class="form-group m">
+        <input class="input" type="text" placeholder="placeholder">
+    </div>
+    <div class="form-group m">
+        <input class="input" type="text" placeholder="placeholder">
+        <input class="input" type="number" placeholder="placeholder">
+        <span class="btn bc-primary">send</span>
+        <button class="btn bc-primary">send</button>
+    </div>
+
+    <div class="dropdown">
+        <div class="label btn bc-primary">Choose item</div>
+        <div class="block">
+            <div>One</div>
+            <div>Two</div>
+            <div>Three</div>
+        </div>
+    </div>
+
+    <div class="btn bc-primary mm">div button</div>
+    <a href="#">link</a>
+    <a href="#" class="link">link link</a> ending text
+    <p class="mm">text</p>
+
+    <div class="mm">
+        <input class="checkbox" type="checkbox" /> check
+    </div>
+
+    <table class="table mm">
+        <thead>
+            <tr>
+                <td>Id</td>
+                <td>Name</td>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>1</td>
+                <td>Jenda</td>
+            </tr>
+            <tr>
+                <td>2</td>
+                <td>Jan</td>
+            </tr>
+            <tr>
+                <td>3</td>
+                <td>Honza</td>
+            </tr>
+            <tr>
+                <td>4</td>
+                <td>
+                    <div class="form-group">
+                        <input class="input" type="text" />
+                        <div class="btn bc-primary">!</div>
+                        <button class="btn bc-primary">Create</button>
+                    </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+
+    <script>
+        const label = document.querySelector(".dropdown .label");
+        const block = document.querySelector(".dropdown .block");
+        label.addEventListener("click", event => {
+            block.classList.toggle('show');
+        });
+        window.addEventListener('click', event => {
+            if (!block.contains(event.target) && event.target != label) {
+                block.classList.remove('show');
+            }
+        });
+    </script>
+</body>
+
+</html>
