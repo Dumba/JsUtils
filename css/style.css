@@ -1,5 +1,6 @@
 /* reset */
 * {
+    position: relative;
     margin: 0;
     padding: 0;
 
@@ -211,11 +212,8 @@
     visibility: hidden;
     opacity: 0;
     left: 10px;
-    padding: 10px;
 
     background-color: #fff;
-    border-radius: 0 0 5px 5px;
-    box-shadow: 2px 2px 2px #888;
     z-index: 100;
 
     transition: visibility 0.3s, opacity 0.3s;
@@ -266,5 +264,91 @@
       border-right-style: none;
 }
 
+/* select list */
+.select {
+    overflow: hidden;
+    border-radius: 7px;
+    box-shadow: 2px 2px 2px #888;
+}
+.select * {
+    padding: 10px 15px;
+}
+.select.separed * {
+    border-bottom: 1px solid #888;
+}
+.select *:hover {
+    background: #ccc;
+}
+.select *:last-child {
+    border-bottom: none;
+}
+
 /* progress bar */
-/* h */
+.progress {
+    position: relative;
+    height: 1.5rem;
+}
+.progress .bars  {
+    position: absolute;
+    top: 0px;
+    left: 0px;
+    bottom: 0px;
+    right: 0px;
+
+    border-radius: 5px;
+    overflow: hidden;
+
+    font-size: 0;
+    z-index: -1;
+}
+.progress .bars * {
+    position: relative;
+    display: inline-block;
+    height: 100%;
+}
+
+/* tooltip - works only on pair tags :'( */
+*[tooltip]:hover::after {
+    content: attr(tooltip);
+
+    position: absolute;
+    top: 110%;
+    left: 10px;
+    padding: 15px 10px;
+    min-width: 100px;
+    min-height: .5rem;
+
+    color: #333;
+    background-color: #ccc;
+    box-shadow: 5px 5px 5px #333;
+    border-radius: 7px;
+
+    z-index: 200;
+}
+
+/* notification */
+.notification {
+    position: sticky;
+    top: 0px;
+    display: table;
+    flex-direction: column;
+    flex-shrink: 0;
+    margin: 0 auto;
+
+    max-width: 80%;
+    min-width: 100px;
+
+    overflow: hidden;
+    border-radius: 0 0 5px 5px;
+}
+.notification > * {
+    padding: 15px 30px;
+    text-align: center;
+}
+.notification > .removeable::after {
+    content: "X";
+    float: right;
+    margin-right: -15px;
+    padding-left: 20px;
+    cursor: pointer;
+}
