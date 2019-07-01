@@ -307,7 +307,7 @@
     border: 1px solid #333;
     border-radius: 50%;
     background-color: #fff;
-    z-index: 2;
+    z-index: 4;
     transition: left .5s;
 }
 .progress-checker .bars input:checked {
@@ -330,7 +330,7 @@
     border-color: #4caf50;
     border-bottom-style: solid;
     border-left-style: solid;
-    z-index: 3;
+    z-index: 5;
 }
 .progress-checker .bars input + div {
     width: 0%;
@@ -339,6 +339,11 @@
 }
 .progress-checker .bars input:checked + div {
     width: 10%;
+}
+.progress-checker .content {
+    padding: .3rem 1rem .3rem;
+    text-align: right;
+    z-index: 3;
 }
 
 /* select list */
