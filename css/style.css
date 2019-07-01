@@ -205,7 +205,8 @@
     position: relative;
 }
 .dropdown .label::after {
-    content: " !";
+    content: " \f0d7";
+    font-family: "Font Awesome 5 Free";
 }
 .dropdown .block {
     position: absolute;
@@ -276,6 +277,7 @@
     bottom: 0px;
     right: 0px;
 
+    border-radius: 5px;
     font-size: 0;
     /* z-index: -2; */
 }
@@ -285,6 +287,9 @@
     height: 100%;
 
     z-index: 1;
+}
+.progress-checker .bars *:last-child {
+    border-radius: 0 5px 5px 0;
 }
 .progress-checker .bars input {
     position: absolute;
@@ -329,6 +334,7 @@
 }
 .progress-checker .bars input + div {
     width: 0%;
+    border-radius: 5px 0 0 5px;
     transition: width .5s;
 }
 .progress-checker .bars input:checked + div {
