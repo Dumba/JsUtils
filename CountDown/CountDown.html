@@ -45,7 +45,8 @@
     <div id="time">00:00:00.00</div>
     <script>
         document.addEventListener('DOMContentLoaded', function () {
-            var finish = new Date('2019-03-02 11:37:00');
+            var now = new Date();
+            var finish = new Date(now.getFullYear(), now.getMonth(), now.getDate(), 17, 14, 0);
             console.log('start');
             setInterval(() => {
                 var remains = finish - Date.now();
