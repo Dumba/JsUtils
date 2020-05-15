@@ -431,6 +431,7 @@
     content: "X";
     float: right;
     margin-right: -15px;
-    padding-left: 20px;
+    margin-left: 20px;
+    padding: 5px;
     cursor: pointer;
 }
